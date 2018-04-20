@@ -1,5 +1,14 @@
+
+// -----------CREATING WRAPPER
+const body = document.querySelector("body");
+const wrapperCreate = document.createElement("div");
+wrapperCreate.className = "wrapper";
+body.appendChild(wrapperCreate);
+// ----------/CREATING WRAPPER
+
+
 const wrapper = document.querySelector(".wrapper");
-let time = new Date(2016, 0, 1).getTime();
+let time = new Date(2018, 0, 1).getTime();
 
 function appendContainer() {
   const container = document.createElement("div");
@@ -61,9 +70,19 @@ function appendHeading(number) {
 function appendUl(number) {
   const ul = document.createElement("ul");
   ul.className = "ul";
-  ul.innerHTML = "<li class='dayNames'>Mo</li> <li class='dayNames'>Tu</li> <li class='dayNames'>We</li> <li class='dayNames'>Tu</li> <li class='dayNames'>Fr</li> <li class='dayNames'>Sa</li> <li class='dayNames'>Su</li>";
+  ul.innerHTML = "<li class='dayNames'>Mo</li> <li class='dayNames'>Tu</li> <li class='dayNames'>We</li> <li class='dayNames'>Th</li> <li class='dayNames'>Fr</li> <li class='dayNames'>Sa</li> <li class='dayNames'>Su</li>";
   const container = document.querySelectorAll(".container");
   container[number].appendChild(ul);
+}
+
+function getLastDayOfMonth(year, month) {
+  const innerDate = new Date(year, month + 1, 0);
+  return innerDate.getDate();
+}
+
+function monthMilliseconds() {
+  const innerDate = new Date(time);
+  return (getLastDayOfMonth(innerDate.getFullYear(), innerDate.getMonth()) * 86400000);
 }
 
 function appendDates(number) {
@@ -71,6 +90,20 @@ function appendDates(number) {
   const innerDate = new Date(time);
   let innerTime = time;
   const numberDaysInMonth = getLastDayOfMonth(innerDate.getFullYear(), innerDate.getMonth());
+
+  if (innerDate.getDay() === 2) {
+    ul.innerHTML += "<li> </li>";
+  } else if (innerDate.getDay() === 3) {
+    ul.innerHTML += "<li> </li> <li> </li>";
+  } else if (innerDate.getDay() === 4) {
+    ul.innerHTML += "<li> </li> <li> </li> <li> </li>";
+  } else if (innerDate.getDay() === 5) {
+    ul.innerHTML += "<li> </li> <li> </li> <li> </li> <li> </li>";
+  } else if (innerDate.getDay() === 6) {
+    ul.innerHTML += "<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>";
+  } else if (innerDate.getDay() === 0) {
+    ul.innerHTML += "<li> </li> <li> </li> <li> </li> <li> </li> <li> </li> <li> </li>";
+  }
 
   for (let i = 0; i < numberDaysInMonth; i += 1) {
     const newDate = new Date(innerTime);
@@ -87,22 +120,12 @@ function appendDates(number) {
   }
 }
 
-function getLastDayOfMonth(year, month) {
-  const innerDate = new Date(year, month + 1, 0);
-  return innerDate.getDate();
-}
-
-function monthMilliseconds() {
-  const innerDate = new Date(time);
-  return (getLastDayOfMonth(innerDate.getFullYear(), innerDate.getMonth()) * 86400000);
-}
-
 function createYear() {
-  for (let i = 0; i < 12; i += 1) {
+  for (let j = 0; j < 12; j += 1) {
     appendContainer();
-    appendHeading(i);
-    appendUl(i);
-    appendDates(i);
+    appendHeading(j);
+    appendUl(j);
+    appendDates(j);
     time += monthMilliseconds();
   }
 }
