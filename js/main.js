@@ -1,17 +1,50 @@
-
-// -----------CREATING WRAPPER
+// -----------Basic styling
 const body = document.querySelector("body");
-const wrapperCreate = document.createElement("div");
-wrapperCreate.className = "wrapper";
-body.appendChild(wrapperCreate);
+body.style.fontFamily = "'Gugi', cursive";
+// -----------/Basic styling
+
+// -----------CREATING AND STYLING HEADER
+const createHeader = document.createElement("h1");
+createHeader.textContent = "Calendar on the pure native Java Script ES6";
+body.appendChild(createHeader);
+createHeader.style.textAlign = "center";
+createHeader.style.margin = "20px 0";
+createHeader.style.fontFamily = "'Roboto', sans-serif";
+createHeader.style.fontSize = "32px";
+// ----------/CREATING HEADER
+
+let time = new Date(2018, 0, 1).getTime();
+
+// -----------CREATING AND STYLING yearHolder
+const yearHolder = document.createElement("h2");
+body.appendChild(yearHolder);
+yearHolder.textContent = new Date(time).getFullYear();
+yearHolder.style.textAlign = "center";
+yearHolder.style.fontSize = "32px";
+// ----------/CREATING YearHolder
+
+// -----------CREATING AND STYLING WRAPPER
+const createWrapper = document.createElement("div");
+createWrapper.className = "wrapper";
+body.appendChild(createWrapper);
+createWrapper.style.marginBottom = "20px";
+createWrapper.style.display = "flex";
+createWrapper.style.flexWrap = "wrap";
+createWrapper.style.justifyContent = "space-around";
 // ----------/CREATING WRAPPER
 
 
 const wrapper = document.querySelector(".wrapper");
-let time = new Date(2018, 0, 1).getTime();
+
 
 function appendContainer() {
   const container = document.createElement("div");
+  container.style.flexBasis = "380px";
+  container.style.height = "300px";
+  container.style.backgroundColor = "#fff";
+  container.style.border = "3px solid #417ca0";
+  container.style.fontSize = "11px";
+  container.style.margin = "15px 3px 3px 3px";
   container.className = "container";
   wrapper.appendChild(container);
 }
@@ -61,6 +94,9 @@ function appendHeading(number) {
   }
 
   const h2 = document.createElement("h2");
+  h2.style.width = "95%";
+  h2.style.textAlign = "center";
+  h2.style.margin = "0.3em";
   h2.className = "h2";
   h2.textContent = month;
   const container = document.querySelectorAll(".container");
@@ -69,6 +105,9 @@ function appendHeading(number) {
 
 function appendUl(number) {
   const ul = document.createElement("ul");
+  ul.style.listStyle = "none";
+  ul.style.display = "flex";
+  ul.style.flexWrap = "wrap";
   ul.className = "ul";
   ul.innerHTML = "<li class='dayNames'>Mo</li> <li class='dayNames'>Tu</li> <li class='dayNames'>We</li> <li class='dayNames'>Th</li> <li class='dayNames'>Fr</li> <li class='dayNames'>Sa</li> <li class='dayNames'>Su</li>";
   const container = document.querySelectorAll(".container");
@@ -128,6 +167,26 @@ function createYear() {
     appendDates(j);
     time += monthMilliseconds();
   }
+
+  // ------------Li styling
+  const li = document.querySelectorAll("li");
+  for (let j = 0; j < li.length; j += 1) {
+    li[j].style.display = "block";
+    li[j].style.width = "calc(100% * (1/7))";
+    li[j].style.padding = "2em 0 0 2em";
+  }
+
+  liSunday = document.querySelectorAll("ul li:nth-of-type(7)");
+  for (let j = 0; j < liSunday.length; j += 1) {
+    liSunday[j].style.color = "#ff0000";
+  }
+
+  liDaysNames = document.querySelectorAll("ul li:nth-of-type(-n + 7)");
+  for (let j = 0; j < liDaysNames.length; j += 1) {
+    liDaysNames[j].style.fontWeight = "bold";
+  }
+  // ------------/Li styling
 }
 
 createYear();
+
